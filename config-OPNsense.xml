@@ -235,7 +235,7 @@
     <nextuid>2000</nextuid>
     <nextgid>2000</nextgid>
     <timezone>Australia/Sydney</timezone>
-    <timeservers>0.opnsense.pool.ntp.org 1.opnsense.pool.ntp.org 2.opnsense.pool.ntp.org 3.opnsense.pool.ntp.org</timeservers>
+    <timeservers>0.au.pool.ntp.org 1.au.pool.ntp.org 2.au.pool.ntp.org 3.au.pool.ntp.org</timeservers>
     <webgui>
       <protocol>https</protocol>
       <ssl-certref>5db6d11d352af</ssl-certref>
@@ -319,7 +319,7 @@
     <lan>
       <enable>1</enable>
       <if>vmx0</if>
-      <ipaddr>@IP_Prefix@.208</ipaddr>
+      <ipaddr>@IP_Prefix@.201</ipaddr>
       <subnet>24</subnet>
       <ipaddrv6/>
       <subnetv6/>
@@ -331,6 +331,7 @@
   </interfaces>
   <dhcpd>
     <lan>
+      <enable>1</enable>
       <ddnsdomainalgorithm>hmac-md5</ddnsdomainalgorithm>
       <tftp>@IP_Prefix@.204</tftp>
       <netboot>1</netboot>
@@ -347,13 +348,15 @@
       </range>
       <winsserver/>
       <dnsserver/>
-      <ntpserver/>
+      <ntpserver>@IP_Prefix@.201</ntpserver>
     </lan>
   </dhcpd>
   <unbound>
     <enable>1</enable>
     <custom_options>server:
-local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custom_options>
+local-zone: "ops.@domain@" redirect
+local-data: "ops.@domain@ 86400 IN A 192.168.56.72"
+local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</custom_options>
     <regdhcp>1</regdhcp>
     <regdhcpstatic>1</regdhcpstatic>
     <acls>
@@ -409,7 +412,19 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <ip>@IP_Prefix@.205</ip>
       <mxprio/>
       <mx/>
-      <descr>switch</descr>
+      <descr>Switch</descr>
+      <aliases>
+        <item/>
+      </aliases>
+    </hosts>
+    <hosts>
+      <host>wireless</host>
+      <domain>@domain@</domain>
+      <rr>A</rr>
+      <ip>@IP_Prefix@.206</ip>
+      <mxprio/>
+      <mx/>
+      <descr>Wireless</descr>
       <aliases>
         <item/>
       </aliases>
@@ -437,7 +452,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <poolopts/>
       <associated-rule-id>nat_5db83428adb091.36303224</associated-rule-id>
       <target>@IP_Prefix@.201</target>
-      <local-port>44301</local-port>
+      <local-port>443</local-port>
       <source>
         <any>1</any>
       </source>
@@ -447,7 +462,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       </destination>
       <updated>
         <username>root@@IP_Prefix@.2</username>
-        <time>1572353079.5722</time>
+        <time>1572522549.3255</time>
         <description>/firewall_nat_edit.php made changes</description>
       </updated>
       <created>
@@ -553,7 +568,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <poolopts/>
       <associated-rule-id>nat_5db8344eb67a99.94409810</associated-rule-id>
       <target>@IP_Prefix@.204</target>
-      <local-port>8004</local-port>
+      <local-port>80</local-port>
       <source>
         <any>1</any>
       </source>
@@ -563,7 +578,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       </destination>
       <updated>
         <username>root@@IP_Prefix@.2</username>
-        <time>1572353114.4969</time>
+        <time>1572522560.0765</time>
         <description>/firewall_nat_edit.php made changes</description>
       </updated>
       <created>
@@ -582,7 +597,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <poolopts/>
       <associated-rule-id>nat_5db83486423b51.65080265</associated-rule-id>
       <target>@IP_Prefix@.205</target>
-      <local-port>8005</local-port>
+      <local-port>80</local-port>
       <source>
         <any>1</any>
       </source>
@@ -592,12 +607,41 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       </destination>
       <updated>
         <username>root@@IP_Prefix@.2</username>
-        <time>1572353158.2713</time>
+        <time>1572522570.9055</time>
         <description>/firewall_nat_edit.php made changes</description>
       </updated>
       <created>
         <username>root@@IP_Prefix@.2</username>
         <time>1572353158.2713</time>
+        <description>/firewall_nat_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule>
+      <protocol>tcp</protocol>
+      <interface>wan</interface>
+      <ipprotocol>inet</ipprotocol>
+      <descr>Wireless</descr>
+      <tag/>
+      <tagged/>
+      <poolopts/>
+      <associated-rule-id>nat_5dbaca6bad8952.78587754</associated-rule-id>
+      <target>@IP_Prefix@.205</target>
+      <local-port>80</local-port>
+      <source>
+        <any>1</any>
+      </source>
+      <destination>
+        <network>wanip</network>
+        <port>8006</port>
+      </destination>
+      <updated>
+        <username>root@@IP_Prefix@.2</username>
+        <time>1572522603.7108</time>
+        <description>/firewall_nat_edit.php made changes</description>
+      </updated>
+      <created>
+        <username>root@@IP_Prefix@.2</username>
+        <time>1572522603.7108</time>
         <description>/firewall_nat_edit.php made changes</description>
       </created>
     </rule>
@@ -718,7 +762,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <ipprotocol>inet</ipprotocol>
       <destination>
         <address>@IP_Prefix@.201</address>
-        <port>44301</port>
+        <port>443</port>
       </destination>
       <descr>NAT OPNsense</descr>
       <associated-rule-id>nat_5db83428adb091.36303224</associated-rule-id>
@@ -737,7 +781,7 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <ipprotocol>inet</ipprotocol>
       <destination>
         <address>@IP_Prefix@.204</address>
-        <port>8004</port>
+        <port>80</port>
       </destination>
       <descr>NAT FreeNAS</descr>
       <associated-rule-id>nat_5db8344eb67a99.94409810</associated-rule-id>
@@ -756,13 +800,32 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <ipprotocol>inet</ipprotocol>
       <destination>
         <address>@IP_Prefix@.205</address>
-        <port>8005</port>
+        <port>80</port>
       </destination>
       <descr>NAT Switch</descr>
       <associated-rule-id>nat_5db83486423b51.65080265</associated-rule-id>
       <created>
         <username>root@@IP_Prefix@.2</username>
         <time>1572353158.2713</time>
+        <description>/firewall_nat_edit.php made changes</description>
+      </created>
+    </rule>
+    <rule>
+      <source>
+        <any>1</any>
+      </source>
+      <interface>wan</interface>
+      <protocol>tcp</protocol>
+      <ipprotocol>inet</ipprotocol>
+      <destination>
+        <address>@IP_Prefix@.205</address>
+        <port>80</port>
+      </destination>
+      <descr>NAT Wireless</descr>
+      <associated-rule-id>nat_5dbaca6bad8952.78587754</associated-rule-id>
+      <created>
+        <username>root@@IP_Prefix@.2</username>
+        <time>1572522603.7108</time>
         <description>/firewall_nat_edit.php made changes</description>
       </created>
     </rule>
@@ -814,7 +877,8 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
     </monitor_type>
   </load_balancer>
   <ntpd>
-    <prefer>0.opnsense.pool.ntp.org</prefer>
+    <prefer>0.au.pool.ntp.org</prefer>
+    <interface>lan</interface>
   </ntpd>
   <widgets>
     <sequence>system_information-container:00000000-col3:show,interface_list-container:00000001-col4:show,traffic_graphs-container:00000002-col4:show</sequence>
@@ -822,8 +886,8 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
   </widgets>
   <revision>
     <username>root@@IP_Prefix@.2</username>
-    <time>1572353239.368</time>
-    <description>/services_unbound_host_edit.php made changes</description>
+    <time>1572524565.9088</time>
+    <description>/services_dhcp.php made changes</description>
   </revision>
   <OPNsense>
     <Firewall>
@@ -980,6 +1044,17 @@ local-data: "_vlmcs._tcp.5g.home. 3600 IN SRV 0 0 1688 opnsense.5g.home."</custo
       <queues/>
       <rules/>
     </TrafficShaper>
+    <zerotier version="1.3.0">
+      <enabled>0</enabled>
+      <apiAccessToken/>
+      <localconf>{
+    "settings":
+    {
+        "interfacePrefixBlacklist": ["vmx0"]
+    }
+}</localconf>
+      <networks/>
+    </zerotier>
   </OPNsense>
   <ca/>
   <gateways>
