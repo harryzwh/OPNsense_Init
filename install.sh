@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DOMAIN=${DOMAIN-"sdn.lab"}
-IP_PREFIX=${IP_PREFIX-"192.168.86"}
+IP_PREFIX=${IP_PREFIX-"192.168.58"}
 
 pkg update
 pkg install -y os-vmware os-zerotier git
