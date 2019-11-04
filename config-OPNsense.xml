@@ -319,7 +319,7 @@
     <lan>
       <enable>1</enable>
       <if>vmx0</if>
-      <ipaddr>@IP_Prefix@.@GW_IP@</ipaddr>
+      <ipaddr>@IP_Prefix@.@IP_Gateway@</ipaddr>
       <subnet>24</subnet>
       <ipaddrv6/>
       <subnetv6/>
