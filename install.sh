@@ -1,13 +1,14 @@
 #!/bin/sh
 
 DOMAIN=${DOMAIN-"sdn.lab"}
-IP_PREFIX=${IP_PREFIX-"192.168.86"}
-GW_IP=${GW_IP-201}
+IP_PREFIX=${IP_PREFIX-"192.168.58"}
+GW_IP=${GW_IP-208}
 
 pkg update
 pkg install -y os-vmware os-zerotier git
 
 curl -o ~/config-OPNsense.xml -sS https://raw.githubusercontent.com/harryzwh/OPNsense_Init/master/config-OPNsense.xml
+sed -i ".bak" -e "s/@domain@/$DOMAIN/" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@domain@/$DOMAIN/" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@IP_Prefix@/$IP_PREFIX/" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@IP_Gateway@/$GW_IP/" ~/config-OPNsense.xml
