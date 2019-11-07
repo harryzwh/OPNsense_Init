@@ -355,7 +355,7 @@
     <enable>1</enable>
     <custom_options>server:
 local-zone: "ops.@domain@" redirect
-local-data: "ops.@domain@ 86400 IN A 192.168.56.72"
+local-data: "ops.@domain@ 86400 IN A @IP_Prefix@.207"
 local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</custom_options>
     <regdhcp>1</regdhcp>
     <regdhcpstatic>1</regdhcpstatic>
@@ -886,8 +886,8 @@ local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</cus
   </widgets>
   <revision>
     <username>root@@IP_Prefix@.2</username>
-    <time>1572524565.9088</time>
-    <description>/services_dhcp.php made changes</description>
+    <time>1573127974.4557</time>
+    <description>/api/routes/routes/addroute/ made changes</description>
   </revision>
   <OPNsense>
     <Firewall>
@@ -1058,7 +1058,17 @@ local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</cus
   </OPNsense>
   <ca/>
   <gateways>
-    <gateway_item/>
+    <gateway_item>
+      <interface>lan</interface>
+      <gateway>@IP_Prefix@.207</gateway>
+      <name>EPC</name>
+      <priority>255</priority>
+      <weight>1</weight>
+      <ipprotocol>inet</ipprotocol>
+      <interval/>
+      <descr>EPC</descr>
+      <monitor_disable>1</monitor_disable>
+    </gateway_item>
   </gateways>
   <cert>
     <refid>5db6d11d352af</refid>
@@ -1069,5 +1079,15 @@ local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</cus
   <ppps>
     <ppp/>
   </ppps>
-  <staticroutes/>
+  <virtualip>
+    <vip/>
+  </virtualip>
+  <staticroutes version="0.0.0">
+    <route uuid="da0abf4c-58c4-4210-b295-3e6b48ffece7">
+      <network>45.45.0.1/16</network>
+      <gateway>EPC</gateway>
+      <descr>EPC</descr>
+      <disabled>0</disabled>
+    </route>
+  </staticroutes>
 </opnsense>
