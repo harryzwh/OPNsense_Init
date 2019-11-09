@@ -19,7 +19,7 @@ sed -i ".bak" -e "s/@IP_Prefix@/$IP_PREFIX/g" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@IP_Gateway@/$GW_IP/g" ~/config-OPNsense.xml
 cp ~/config-OPNsense.xml /conf/config.xml
 
-API="/api/zerotier/settings/get/"
+API="/api/zerotier/settings/set/"
 curl -k -u $KEY:$SECRET "$HOST$API" -X POST -H "$HEADER" -d \
 '{
   "zerotier": {

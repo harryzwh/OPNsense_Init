@@ -4,7 +4,7 @@
 KEY="duSMPU4Otj0H9N2wpoD0ee7Aq5y49y230gpOJttq4RAZID6ylzoNaj4kIHwsx8AVCxBGr0PvH9KVbmji"
 SECRET="jwAtBm0sj4QCOIiHFO/7/PB0/+AHcBBESEhelNeWYYe0wFqiTD3hgcCtUBXD8ZPhynCPGNp0mSbyCb61"
 
-HOST="https://127.0.0.1"
+HOST="https://192.168.58.208"
 HEADER="Content-Type: application/json"
 
 API="/api/zerotier/settings/set/"
