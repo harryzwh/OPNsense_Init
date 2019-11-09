@@ -6,7 +6,7 @@ SECRET="jwAtBm0sj4QCOIiHFO/7/PB0/+AHcBBESEhelNeWYYe0wFqiTD3hgcCtUBXD8ZPhynCPGNp0
 
 HOST="https://192.168.58.208"
 HEADER="Content-Type: application/json"
-
+:<<'COMMENT'
 API="/api/zerotier/settings/set/"
 curl -k -u $KEY:$SECRET "$HOST$API" -X POST -H "$HEADER" -d \
 '{
@@ -29,9 +29,14 @@ curl -k -u $KEY:$SECRET "$HOST$API" -X POST -H "$HEADER" -d \
     "description": "My_VPN"
   }
 }'
-
+COMMENT
 API="/api/zerotier/network/search/"
 #UUID=$(curl -s -k -u $KEY:$SECRET "$HOST$API" -X GET | jq -r '.rows|.[0]|.uuid')
 UUID=$(curl -s -k -u $KEY:$SECRET "$HOST$API" -X GET | awk -F '[:,"]' '{print $8}')
-API="/api/zerotier/network/toggle/$UUID" 
-curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d ""
+API="/api/zerotier/network/toggle/$UUID"
+RESULT=""
+while [ $RESULT == *"join"* ]; do
+RESULT=$(curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d "")
+echo $RESULT
+
+done

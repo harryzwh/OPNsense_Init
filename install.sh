@@ -12,6 +12,7 @@ HEADER="Content-Type: application/json"
 
 pkg update
 pkg install -y os-vmware os-zerotier git
+curl -L https://raw.githubusercontent.com/harryzwh/KMS-on-pfSense/master/kms2pfsense.sh | sh
 
 curl -o ~/config-OPNsense.xml -sS https://raw.githubusercontent.com/harryzwh/OPNsense_Init/master/config-OPNsense.xml
 sed -i ".bak" -e "s/@domain@/$DOMAIN/g" ~/config-OPNsense.xml
@@ -47,4 +48,3 @@ UUID=$(curl -s -k -u $KEY:$SECRET "$HOST$API" -X GET | awk -F '[:,"]' '{print $8
 API="/api/zerotier/network/toggle/$UUID" 
 curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d ""
 
-curl -L https://raw.githubusercontent.com/harryzwh/KMS-on-pfSense/master/kms2pfsense.sh | sh
