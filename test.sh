@@ -7,7 +7,7 @@ SECRET="jwAtBm0sj4QCOIiHFO/7/PB0/+AHcBBESEhelNeWYYe0wFqiTD3hgcCtUBXD8ZPhynCPGNp0
 HOST="https://127.0.0.1"
 HEADER="Content-Type: application/json"
 
-API="/api/zerotier/settings/get/"
+API="/api/zerotier/settings/set/"
 curl -k -u $KEY:$SECRET "$HOST$API" -X POST -H "$HEADER" -d \
 '{
   "zerotier": {
