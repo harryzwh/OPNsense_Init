@@ -47,4 +47,6 @@ API="/api/zerotier/network/search/"
 UUID=$(curl -s -k -u $KEY:$SECRET "$HOST$API" -X GET | awk -F '[:,"]' '{print $8}')
 API="/api/zerotier/network/toggle/$UUID" 
 curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d ""
+curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d ""
+curl -k -u $KEY:$SECRET "$HOST$API" -X POST -d ""
 
