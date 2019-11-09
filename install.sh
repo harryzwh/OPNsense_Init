@@ -3,6 +3,7 @@
 DOMAIN=${DOMAIN-"sdn.lab"}
 IP_PREFIX=${IP_PREFIX-"192.168.58"}
 GW_IP=${GW_IP-208}
+ZT_IP=${ZT_IP-"10.147.17.86"}
 
 KEY="duSMPU4Otj0H9N2wpoD0ee7Aq5y49y230gpOJttq4RAZID6ylzoNaj4kIHwsx8AVCxBGr0PvH9KVbmji"
 SECRET="jwAtBm0sj4QCOIiHFO/7/PB0/+AHcBBESEhelNeWYYe0wFqiTD3hgcCtUBXD8ZPhynCPGNp0mSbyCb61"
@@ -18,6 +19,7 @@ curl -o ~/config-OPNsense.xml -sS https://raw.githubusercontent.com/harryzwh/OPN
 sed -i ".bak" -e "s/@domain@/$DOMAIN/g" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@IP_Prefix@/$IP_PREFIX/g" ~/config-OPNsense.xml
 sed -i ".bak" -e "s/@IP_Gateway@/$GW_IP/g" ~/config-OPNsense.xml
+sed -i ".bak" -e "s/@ZT_IP@/$ZT_IP/g" ~/config-OPNsense.xml
 cp ~/config-OPNsense.xml /conf/config.xml
 
 API="/api/zerotier/settings/set/"
