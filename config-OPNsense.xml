@@ -633,7 +633,7 @@ local-data: "_vlmcs._tcp.@domain@. 3600 IN SRV 0 0 1688 opnsense.@domain@."</cus
       <tagged/>
       <poolopts/>
       <associated-rule-id>nat_5dbaca6bad8952.78587754</associated-rule-id>
-      <target>@IP_Prefix@.205</target>
+      <target>@IP_Prefix@.206</target>
       <local-port>80</local-port>
       <source>
         <any>1</any>
